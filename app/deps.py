@@ -34,7 +34,11 @@ def get_current_user(
 
     try:
         payload = jwt.decode(actual_token, SECRET_KEY, algorithms=[ALGORITHM])
+        # Ensure this is an access token (not a refresh token)
+        if payload.get("type") != "access":
+            raise JWTError()
         user_id = payload.get("sub")
+        session_version = payload.get("session_version")
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
@@ -44,5 +48,8 @@ def get_current_user(
     user = db.query(User).filter(User.id == int(user_id)).first()
     if not user or user.status != "ACTIVE":
         raise HTTPException(status_code=403, detail="User inactive or not found")
+
+    if session_version is not None and user.session_version != session_version:
+        raise HTTPException(status_code=401, detail="Session invalidated")
 
     return user
