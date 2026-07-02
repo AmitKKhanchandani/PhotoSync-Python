@@ -18,7 +18,7 @@ export default function Login() {
 
   useEffect(() => {
     // Check if already logged in
-    if (localStorage.getItem('jwt_token')) {
+    if (localStorage.getItem('access_token')) {
       navigate('/');
     }
     
@@ -42,8 +42,9 @@ export default function Login() {
           device_name: 'Web Portal'
         }
       });
-      localStorage.setItem('jwt_token', response.data.access_token);
-      window.location.href = '/'; 
+      localStorage.setItem('access_token', response.data.access_token);
+      localStorage.setItem('refresh_token', response.data.refresh_token);
+      window.location.href = '/';
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Failed to login. Check credentials.');
     } finally {

@@ -9,7 +9,7 @@ import MediaInfoPanel from '../components/MediaInfoPanel';
 import { ArrowLeft, Trash2, X, CheckCircle2, Circle, Play, Users, DownloadCloud, Download, Info, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const getMyUserId = () => {
-  const token = localStorage.getItem('jwt_token');
+  const token = localStorage.getItem('access_token');
   if (!token) return null;
   try { return parseInt(JSON.parse(atob(token.split('.')[1])).sub); } 
   catch (e) { return null; }
@@ -368,7 +368,7 @@ export default function AlbumDetail() {
                 controls 
                 autoPlay 
                 playsInline 
-                src={`${import.meta.env.DEV ? (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000') : window.location.origin}/photos/file/${selectedMedia.id}?token=${localStorage.getItem('jwt_token')}`}
+                src={`${import.meta.env.DEV ? (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000') : window.location.origin}/photos/file/${selectedMedia.id}?token=${localStorage.getItem('access_token')}`}
               >
                 Your browser does not support the video tag.
               </video>

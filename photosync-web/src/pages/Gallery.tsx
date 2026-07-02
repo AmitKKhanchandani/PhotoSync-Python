@@ -60,7 +60,8 @@ export default function Gallery() {
   }, [isProcessingAction, deleteDialog.isOpen, isAddToAlbumOpen, isUploadModalOpen, selectedMedia, photos]);
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     window.location.href = '/login';
   };
 
@@ -329,7 +330,7 @@ export default function Gallery() {
                 controls 
                 autoPlay 
                 playsInline 
-                src={`${import.meta.env.DEV ? (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000') : window.location.origin}/photos/file/${selectedMedia.id}?token=${localStorage.getItem('jwt_token')}`}
+                src={`${import.meta.env.DEV ? (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000') : window.location.origin}/photos/file/${selectedMedia.id}?token=${localStorage.getItem('access_token')}`}
               >
                 Your browser does not support the video tag.
               </video>

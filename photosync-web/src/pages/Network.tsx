@@ -145,7 +145,8 @@ export default function Network() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     window.location.href = '/login';
   };
 

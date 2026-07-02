@@ -7,7 +7,7 @@ import Network from './pages/Network';
 import Register from './pages/Register';
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('jwt_token');
+  const isAuthenticated = !!localStorage.getItem('access_token');
 
   return (
     <BrowserRouter>
